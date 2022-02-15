@@ -41,4 +41,49 @@ function createList() {
 			listItems.push(listItem);
 			draggable_list.appendChild(listItem);
 		});
+	addEventListeners();
+}
+
+function dragStart() {
+	// console.log("Event:", "dragstart");
+	dragStartIndex = +this.closest("li").getAttribute("data-index");
+}
+
+function dragEnter() {
+	// console.log("Event:", "dragenter");
+	this.classList.add("over");
+}
+
+function dragLeave() {
+	// console.log("Event:", "dragleave");
+	this.classList.remove("over");
+}
+
+function dragOver() {
+	// console.log("Event:", "dragOver");
+}
+
+function dragDrop() {
+	// console.log("Event:", "drop");
+	const dragEndIndex = +this.getAttribute("data-index");
+	swapItems(dragStartIndex, dragEndIndex);
+	this.classList.remove("over");
+}
+
+function swapItems(fromIndex, toIndex) {}
+
+function addEventListeners() {
+	const draggables = document.querySelectorAll(".draggable");
+	const dragListItems = document.querySelectorAll(".draggable-list li");
+
+	draggables.forEach((draggable) => {
+		draggable.addEventListener("dragstart", dragStart);
+	});
+
+	dragListItems.forEach((item) => {
+		item.addEventListener("dragover", dragOver);
+		item.addEventListener("drop", dragDrop);
+		item.addEventListener("dragenter", dragEnter);
+		item.addEventListener("dragleave", dragLeave);
+	});
 }
