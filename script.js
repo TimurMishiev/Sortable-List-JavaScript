@@ -59,8 +59,9 @@ function dragLeave() {
 	this.classList.remove("over");
 }
 
-function dragOver() {
+function dragOver(e) {
 	// console.log("Event:", "dragOver");
+	e.preventDefault();
 }
 
 function dragDrop() {
@@ -70,7 +71,13 @@ function dragDrop() {
 	this.classList.remove("over");
 }
 
-function swapItems(fromIndex, toIndex) {}
+function swapItems(fromIndex, toIndex) {
+	const itemOne = listItems[fromIndex].querySelector(".draggable");
+	const itemTwo = listItems[toIndex].querySelector(".draggable");
+
+	listItems[fromIndex].appendChild(itemTwo);
+	listItems[toIndex].appendChild(itemOne);
+}
 
 function addEventListeners() {
 	const draggables = document.querySelectorAll(".draggable");
